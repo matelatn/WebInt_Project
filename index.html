@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Le Flocon</title>
+  <link rel="stylesheet" href="styles_flocon.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js"></script>
+  <script src="script_flocon.js" defer></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
+</head>
+
+<body>
+<div id="header-placeholder"></div>
+
+
+<script>
+  fetch('header.html')
+          .then(res => res.text())
+          .then(data => {
+            document.getElementById('header-placeholder').innerHTML = data;
+          });
+</script>
+
+  <nav class="navbar">
+    <ul>
+      <li><a href="index.html">Description</a></li>
+      <li><a href="photos.html">Photos</a></li>
+      <li><a href="localisation.html">Localisation</a></li>
+      <li><a href="reservation.html">Réservation</a></li>
+      <li><a href="faq.html">F.A.Q.</a></li>
+    </ul>
+    <div class="season-toggle">
+    <label class="switch">
+      <input type="checkbox" id="seasonSwitch" />
+      <span class="slider round"></span>
+    </label>
+    <span id="seasonLabel">☀️ Été</span>
+  </div>
+  </nav>
+
+  <main>
+    <section id="description" class="container">
+      <h2>Description</h2>
+
+      <!-- ❄️ Hiver -->
+      <div class="season-content winter-only">
+        <h3>❄️ Appartement</h3>
+        <div class="encadre">
+          <p>Dans la station des Ménuires, nous louons un studio de 25 m² pour 4 personnes, classé <strong>2 flocons Or</strong> et <strong>2 étoiles</strong>. L’appartement est situé au 1er étage de la résidence <strong>Les Asters bâtiment C3</strong> (quartier des Fontanettes). Son exposition plein <strong>SUD</strong> vous garantit un ensoleillement maximum avec vue dégagée sur la montagne et vous permet de manger dehors au moindre rayon de soleil.</p>
+          <p><strong>Skis aux pieds</strong> : appartement aux pieds des pistes, vous partirez et rentrerez skis aux pieds.</p>
+          <p>Résidence avec gardiens. Parkings extérieurs gratuits + parking privé avec télécommande.</p>
+          <p>Appartement confortable et tout équipé :</p>
+          <ul>
+            <li>Séjour avec canapé-lit (clic-clac 140x190), TV écran plat, lecteur DVD</li>
+            <li>Balcon avec vue dégagée, table permettant de manger à 4 et 2 relax</li>
+            <li>Chambre fermée avec 2 lits superposés</li>
+            <li>Salle de bain avec douche et WC</li>
+            <li>Cuisine entièrement équipée : lave-vaisselle, four, four micro-onde, plaques électriques, cafetière, cafetière Nespresso, bouilloire, grille-pain, appareil à raclette, etc.</li>
+          </ul>
+          <p><strong>À noter :</strong> linge de maison non fourni. Couettes, oreillers et alèses jetables fournis pour 4.</p>
+          <p>Appartement non fumeur. Animaux non acceptés. Résidence secondaire.</p>
+          <p><strong>Horaires :</strong> arrivée le samedi à partir de 15h, départ jusqu'à 10h.</p>
+        </div>
+
+        <h3>🎿 Domaine skiable et station</h3>
+        <div class="encadre">
+          <p>Au sein du plus grand domaine skiable au monde (332 pistes, 155 remontées mécaniques), les 7 stations de ski des 3 Vallées vous garantissent un enneigement optimal, pour profiter au maximum de votre séjour aux sports d’hiver. Pour que tout le monde puisse se faire plaisir, le domaine skiable des 3 Vallées est adapté à tous, skieurs débutants comme amateurs aguerris de sports d’hiver. Station labellisée « Famille Plus ».</p>
+          <p>Vous y trouverez un centre sportif et de bien-être, un espace aqualudique et wellness dédié au bien-être et à la remise en forme avec espace enfant.</p>
+          <p>2 cinémas sont situés à proximité de l’appartement.</p>
+          <p>Des navettes gratuites desservent la station qui dispose de toutes commodités et de tous commerces.</p>
+        </div>
+
+        <h3>💵 Tarifs</h3>
+        <div class="encadre">
+          <p>Variable en fonction de la période, consulter le calendrier dans l'onglet <a href="reservation.html"><strong>Réservation</strong></a>.</p>
+        </div>
+        <p class="note-contact"><small>Pour plus de renseignements, contactez-nous par mail, sms ou appel.</small></p>
+      </div>
+
+      <!-- ☀️ Été -->
+      <div class="season-content summer-only">
+        <h3>⛰️ Appartement</h3>
+        <div class="encadre">
+          <p>Dans la station des Ménuires, nous louons un studio de 25 m² pour 4 personnes, classé <strong>2 flocons Or</strong> et <strong>2 étoiles</strong>. L’appartement est situé au 1er étage de la résidence <strong>Les Asters bâtiment C3</strong> (quartier des Fontanettes). Son exposition plein <strong>SUD</strong> vous garantit un ensoleillement maximum avec vue dégagée sur la montagne et vous permet de manger dehors au moindre rayon de soleil.</p>
+          <p>Résidence avec gardiens. Parkings extérieurs gratuits + parking privé avec télécommande.</p>
+          <p>Appartement confortable et tout équipé :</p>
+          <ul>
+            <li>Séjour avec canapé-lit (clic-clac 140x190), TV écran plat, lecteur DVD</li>
+            <li>Balcon avec vue dégagée, table permettant de manger à 4 et 2 relax</li>
+            <li>Chambre fermée avec 2 lits superposés</li>
+            <li>Salle de bain avec douche et WC</li>
+            <li>Cuisine entièrement équipée : lave-vaisselle, four, four micro-onde, plaques électriques, cafetière, cafetière Nespresso, bouilloire, grille-pain, appareil à raclette, etc.</li>
+          </ul>
+          <p><strong>À noter :</strong> linge de maison non fourni. Couettes, oreillers et alèses jetables fournis pour 4.</p>
+          <p>Appartement non fumeur. Animaux non acceptés. Résidence secondaire.</p>
+          <p><strong>Horaires :</strong> arrivée le samedi à partir de 15h, départ jusqu'à 10h.</p>
+          <p>Parfait pour les randonnées, le repos en altitude et les activités de plein air. </p>
+        </div>
+
+        <h3>🥾 Activités estivales et station</h3>
+        <div class="encadre">
+          <p>Vous trouverez aux Menuires un centre sportif et de bien-être, un espace aqualudique et wellness dédié au bien-être et à la remise en forme avec espace enfant.</p>
+          <p>De nombreuses installations sportives sont accessibles dans la station comme des terrains de tennis, de baskets et un city.</p>
+          <p>Départs de sentiers de randonnée, via ferrata, VTT, pêche en montagne. Nombreuses animations proposées par la station en été : marchés, concerts, événements enfants, etc.</p>
+          <p>2 cinémas sont situés à proximité de l’appartement.</p>
+          <p>Des navettes gratuites desservent la station qui dispose de toutes commodités et de tous commerces.</p>
+        </div>
+
+        <h3>💵 Tarifs</h3>
+        <div class="encadre">
+          <p>Tarifs adaptés aux périodes creuses estivales. Voir la page <a href="reservation.html"><strong>Réservation</strong></a>.</p>
+        </div>
+        <p class="note-contact"><small>Pour plus de renseignements, contactez-nous par mail, sms ou appel.</small></p>
+      </div>
+
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Le Flocon. Tous droits réservés.</p>
+  </footer>
+  <footer class="footer">
+    <p><strong>Nous contacter</strong></p>
+    <p>
+      Propriétaire : Karine PEIXOTO<br>
+      Email : <a href="mailto:peixoto_k@yahoo.fr">peixoto_k@yahoo.fr</a><br>
+      Téléphone : <a href="tel:+33615534261">06 15 53 42 61</a>
+    </p>
+  </footer>
+
+</body>
+</html>

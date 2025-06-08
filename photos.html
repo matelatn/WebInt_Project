@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Le Flocon</title>
+  <link rel="stylesheet" href="styles_flocon.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js"></script>
+  <script src="script_flocon.js" defer></script>
+  <!-- Lightbox CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css" rel="stylesheet">
+  <!-- Lightbox JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
+
+</head>
+
+<body>
+<div id="header-placeholder"></div>
+
+
+<script>
+  fetch('header.html')
+          .then(res => res.text())
+          .then(data => {
+            document.getElementById('header-placeholder').innerHTML = data;
+          });
+</script>
+
+  <nav class="navbar">
+    <ul>
+      <li><a href="index.html">Description</a></li>
+      <li><a href="photos.html">Photos</a></li>
+      <li><a href="localisation.html">Localisation</a></li>
+      <li><a href="reservation.html">Réservation</a></li>
+      <li><a href="faq.html">F.A.Q.</a></li>
+    </ul>
+      <div class="season-toggle">
+    <label class="switch">
+      <input type="checkbox" id="seasonSwitch" />
+      <span class="slider round"></span>
+    </label>
+    <span id="seasonLabel">☀️ Été</span>
+  </div>
+  </nav>
+
+
+  <main>
+    <section id="photos" class="container">
+      <h2>Photos</h2>
+
+      <div class="season-content winter-only">
+        <h3>❄️ Hiver</h3>
+        <div class="photo-gallery">
+          <a href="images_flocon/vue2.jpeg" data-lightbox="hiver" data-title="Vue hiver 1">
+            <img src="images_flocon/vue2.jpeg" alt="Vue hiver 1">
+          </a>
+          <a href="images_flocon/canapé2.jpeg" data-lightbox="hiver" data-title="Salon">
+            <img src="images_flocon/canapé2.jpeg" alt="Salon">
+          </a>
+          <a href="images_flocon/salon.jpeg" data-lightbox="hiver" data-title="Salon">
+            <img src="images_flocon/salon.jpeg" alt="Salon">
+          </a>
+          <a href="images_flocon/tablebalcon.jpeg" data-lightbox="hiver" data-title="Balcon">
+            <img src="images_flocon/tablebalcon.jpeg" alt="Balcon">
+          </a>
+          <a href="images_flocon/vueglobale.jpeg" data-lightbox="hiver" data-title="Pièce principale">
+            <img src="images_flocon/vueglobale.jpeg" alt="Pièce principale">
+          </a>
+          <a href="images_flocon/cuisine.jpeg" data-lightbox="hiver" data-title="Cuisine">
+            <img src="images_flocon/cuisine.jpeg" alt="Cuisine">
+          </a>
+          <a href="images_flocon/chambre.jpeg" data-lightbox="hiver" data-title="Chambre">
+            <img src="images_flocon/chambre.jpeg" alt="Chambre">
+          </a>
+          <a href="images_flocon/litssuperposes.jpeg" data-lightbox="hiver" data-title="Lit">
+            <img src="images_flocon/litssuperposes.jpeg" alt="Lit">
+          </a>
+          <a href="images_flocon/salle_de_bain.jpeg" data-lightbox="hiver" data-title="Salle de bain">
+            <img src="images_flocon/salle_de_bain.jpeg" alt="Salle de bain">
+          </a>
+          <a href="images_flocon/vueimmeuble.jpeg" data-lightbox="hiver" data-title="Immeuble">
+            <img src="images_flocon/vueimmeuble.jpeg" alt="Immeuble">
+          </a>
+        </div>
+      </div>
+
+      <div class="season-content summer-only">
+        <h3>☀️ Été</h3>
+        <div class="photo-gallery">
+          <a href="images_flocon/vue_été.jpeg" data-lightbox="ete" data-title="Vue été 1">
+            <img src="images_flocon/vue_été.jpeg" alt="Vue été 1">
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+
+
+  <footer>
+    <p>&copy; 2025 Le Flocon. Tous droits réservés.</p>
+
+  </footer>
+  <footer class="footer">
+    <p><strong>Nous contacter</strong></p>
+    <p>
+      Propriétaire : Karine PEIXOTO<br>
+      Email : <a href="mailto:peixoto_k@yahoo.fr">peixoto_k@yahoo.fr</a><br>
+      Téléphone : <a href="tel:+33615534261">06 15 53 42 61</a>
+    </p>
+</footer>
+
+</body>
+
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Le Flocon</title>
+  <link rel="stylesheet" href="styles_flocon.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js"></script>
+  <script src="script_flocon.js" defer></script>
+  <!-- Lightbox CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css" rel="stylesheet">
+  <!-- Lightbox JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
+
+</head>
+
+<body>
+<div id="header-placeholder"></div>
+
+
+<script>
+  fetch('header.html')
+          .then(res => res.text())
+          .then(data => {
+            document.getElementById('header-placeholder').innerHTML = data;
+          });
+</script>
+
+  <nav class="navbar">
+    <ul>
+      <li><a href="index.html">Description</a></li>
+      <li><a href="photos.html">Photos</a></li>
+      <li><a href="localisation.html">Localisation</a></li>
+      <li><a href="reservation.html">Réservation</a></li>
+      <li><a href="faq.html">F.A.Q.</a></li>
+    </ul>
+      <div class="season-toggle">
+    <label class="switch">
+      <input type="checkbox" id="seasonSwitch" />
+      <span class="slider round"></span>
+    </label>
+    <span id="seasonLabel">☀️ Été</span>
+  </div>
+  </nav>
+
+  <main>
+    <section id="faq" class="container">
+        <h2>F.A.Q.</h2>
+        <div class="faq-item">
+            <div class="faq-question" tabindex="0" aria-expanded="false">
+              Comment puis-je réserver une semaine au Flocon ?
+            </div>
+            <div class="faq-answer" hidden>
+              Vous pouvez effectuer votre réservation directement sur notre page "Réservation" en sélectionnant la semaine souhaitée et en suivant les étapes de paiement sécurisées via PayPal.
+            </div>
+          </div>
+        
+          <div class="faq-item">
+            <div class="faq-question" tabindex="0" aria-expanded="false">
+              Quelles sont les conditions d'annulation ?
+            </div>
+            <div class="faq-answer" hidden>
+              Les annulations sont possibles jusqu'à 14 jours avant la date d'arrivée avec remboursement complet. Passé ce délai, aucun remboursement ne sera effectué.
+            </div>
+          </div>
+      </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Le Flocon. Tous droits réservés.</p>
+
+  </footer>
+  <footer class="footer">
+    <p><strong>Nous contacter</strong></p>
+    <p>
+      Propriétaire : Karine PEIXOTO<br>
+      Email : <a href="mailto:peixoto_k@yahoo.fr">peixoto_k@yahoo.fr</a><br>
+      Téléphone : <a href="tel:+33615534261">06 15 53 42 61</a>
+    </p>
+</footer>
+
+</body>
+
+</html>

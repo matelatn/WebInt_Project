@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Le Flocon</title>
+  <link rel="stylesheet" href="styles_flocon.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js"></script>
+  <script src="https://www.paypal.com/sdk/js?client-id=AXytrBh5RsttUmuJouISOdW6PeNfIu14C3eaBJg4v9OH1DJk0MKrdP9mBjPaQIQGzcRxz_m9ygWSS4Ir&currency=EUR"></script>
+
+  <!-- Firebase SDK compat -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+  <!-- Initialisation Firebase -->
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyC37gamjZ4u7Sm-JrPEkv_HwVAxMTRM1Hc",
+      authDomain: "leflocon-6e2e6.firebaseapp.com",
+      databaseURL: "https://leflocon-6e2e6-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "leflocon-6e2e6",
+      storageBucket: "leflocon-6e2e6.appspot.com",
+      messagingSenderId: "733812586803",
+      appId: "1:733812586803:web:715c434f3eaa265fc56646"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+  </script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Variables globales
+      const priceDisplay = document.getElementById('price-display');
+      const reserveButton = document.getElementById('reserveButton');
+      const paypalContainer = document.getElementById('paypal-button-container');
+
+      let currentPrice = 0;
+
+      // Fonction pour récupérer les infos de la semaine dans Realtime Database
+      async function getWeekInfo(weekStart) {
+        try {
+          console.log("Fetching data for weekStart:", weekStart);
+          const snapshot = await db.ref('weeks/' + weekStart).get();
+          if (snapshot.exists()) {
+            console.log("Données récupérées:", snapshot.val());
+            return snapshot.val();
+          } else {
+            console.log("Pas de données pour:", weekStart);
+            return null;
+          }
+        } catch (error) {
+          console.error("Erreur Realtime DB:", error);
+          return null;
+        }
+      }
+
+      // Initialisation flatpickr
+      flatpickr("#calendar", {
+        enableTime: false,
+        dateFormat: "Y-m-d",
+        minDate: "today",
+        locale: { firstDayOfWeek: 1 },
+        onChange: async function (selectedDates) {
+          if (selectedDates.length === 0) {
+            priceDisplay.textContent = "";
+            reserveButton.disabled = true;
+            paypalContainer.style.display = 'none';
+            paypalContainer.innerHTML = "";
+            return;
+          }
+
+          const selectedDate = selectedDates[0];
+          let weekStart = new Date(selectedDate);
+          const dayOfWeek = weekStart.getDay(); // 0 = dimanche, ..., 6 = samedi
+
+          // Reculer jusqu’au samedi précédent si on n’est pas samedi
+          if (dayOfWeek !== 6) {
+            weekStart.setDate(weekStart.getDate() - ((dayOfWeek + 1) % 7));
+          }
+
+          const selectedWeekStart = weekStart.toISOString().split('T')[0];
+
+          const weekEnd = new Date(weekStart);
+          weekEnd.setDate(weekStart.getDate() + 6);
+          const selectedWeekEnd = weekEnd.toISOString().split('T')[0];
+
+          const weekInfo = await getWeekInfo(selectedWeekStart);
+
+          if (weekInfo && weekInfo.available) {
+            currentPrice = weekInfo.price || 0;
+            priceDisplay.innerHTML = `Prix pour la semaine du ${selectedWeekStart} au ${selectedWeekEnd} : €${currentPrice}`;
+            reserveButton.disabled = false;
+            paypalContainer.style.display = 'none';
+            paypalContainer.innerHTML = "";
+          } else {
+            priceDisplay.innerHTML = "Désolé, les dates sélectionnées ne sont pas disponibles.";
+            reserveButton.disabled = true;
+            paypalContainer.style.display = 'none';
+            paypalContainer.innerHTML = "";
+          }
+        }
+      });
+
+      reserveButton.addEventListener('click', function () {
+        this.style.display = 'none';
+        paypalContainer.style.display = 'block';
+
+        paypal.Buttons({
+          createOrder: function (data, actions) {
+            return actions.order.create({
+              purchase_units: [{
+                amount: {
+                  value: currentPrice.toFixed(2)
+                }
+              }]
+            });
+          },
+          onApprove: function (data, actions) {
+            return actions.order.capture().then(function (details) {
+              alert('Paiement réussi !');
+            });
+          },
+          onError: function (err) {
+            console.error('Erreur de paiement :', err);
+            alert('Erreur de paiement. Veuillez réessayer.');
+          }
+        }).render('#paypal-button-container');
+      });
+    });
+  </script>
+</head>
+
+<body>
+<div id="header-placeholder"></div>
+
+
+<script>
+  fetch('header.html')
+          .then(res => res.text())
+          .then(data => {
+            document.getElementById('header-placeholder').innerHTML = data;
+          });
+</script>
+
+  <nav class="navbar">
+    <ul>
+      <li><a href="index.html">Description</a></li>
+      <li><a href="photos.html">Photos</a></li>
+      <li><a href="localisation.html">Localisation</a></li>
+      <li><a href="reservation.html">Réservation</a></li>
+      <li><a href="faq.html">F.A.Q.</a></li>
+    </ul>
+      <div class="season-toggle">
+    <label class="switch">
+      <input type="checkbox" id="seasonSwitch" />
+      <span class="slider round"></span>
+    </label>
+    <span id="seasonLabel">☀️ Été</span>
+  </div>
+  </nav>
+
+  <main>
+    <section id="reservation" class="container">
+      <h2>Réservation</h2>
+      <p>Veuillez sélectionner une semaine pour votre réservation :</p>
+
+      <input type="text" id="calendar" placeholder="Sélectionnez une date" />
+      <div id="price-display" class="price-display"></div>
+      <button id="reserveButton" disabled>Réserver</button>
+      <div id="paypal-button-container" style="display: none;"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Le Flocon. Tous droits réservés.</p>
+  </footer>
+
+  <footer class="footer">
+    <p><strong>Nous contacter</strong></p>
+    <p>
+      Propriétaire : Karine PEIXOTO<br />
+      Email : <a href="mailto:peixoto_k@yahoo.fr">peixoto_k@yahoo.fr</a><br />
+      Téléphone : <a href="tel:+33615534261">06 15 53 42 61</a>
+    </p>
+  </footer>
+
+</body>
+
+</html>
