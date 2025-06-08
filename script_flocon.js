@@ -27,7 +27,24 @@ document.addEventListener("DOMContentLoaded", () => {
       label.textContent = newSeason === "winter" ? "❄️ Hiver" : "☀️ Été";
       localStorage.setItem("season", newSeason);
       toggleSeasonContent(newSeason);
+
+      // 🎬 Mise à jour de la vidéo selon la saison
+      const video = document.getElementById("seasonVideo");
+      const videoSource = document.getElementById("videoSource");
+      const credit = document.getElementById("videoCredit");
+
+      if (video && videoSource) {
+        if (newSeason === "winter") {
+          videoSource.src = "videos/intro_hiver.mp4";
+          if (credit) credit.style.display = "block";
+        } else {
+          videoSource.src = "videos/intro_ete.mp4";
+          if (credit) credit.style.display = "none";
+        }
+        video.load(); // recharge la vidéo
+      }
     });
+
   }
 
   function toggleSeasonContent(season) {
@@ -173,28 +190,35 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
-//Switch vidéo ETE/HIVER
-document.addEventListener("DOMContentLoaded", function () {
-  const seasonSwitch = document.getElementById("seasonSwitch");
-  const video = document.getElementById("seasonVideo");
-  const videoSource = document.getElementById("videoSource");
-  const credit = document.getElementById("videoCredit");
+
+fetch('header.html')
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById('header-placeholder').innerHTML = data;
+
+      // Appliquer la vidéo correcte dès le chargement du header
+      const savedSeason = localStorage.getItem("season") || "summer";
+      const video = document.getElementById("seasonVideo");
+      const videoSource = document.getElementById("videoSource");
+      const credit = document.getElementById("videoCredit");
+      const switchInput = document.getElementById("seasonSwitch");
+      const label = document.getElementById("seasonLabel");
+
+      if (switchInput && label) {
+        switchInput.checked = savedSeason === "winter";
+        label.textContent = savedSeason === "winter" ? "❄️ Hiver" : "☀️ Été";
+      }
+
+      if (video && videoSource) {
+        if (savedSeason === "winter") {
+          videoSource.src = "videos/intro_hiver.mp4";
+          if (credit) credit.style.display = "block";
+        } else {
+          videoSource.src = "videos/intro_ete.mp4";
+          if (credit) credit.style.display = "none";
+        }
+        video.load(); // Recharge la vidéo avec la bonne source
+      }
+    });
 
 
-  function updateVideoBySeason(isWinter) {
-    if (isWinter) {
-      videoSource.src = "videos/intro_hiver.mp4";
-      credit.style.display = "block";
-    } else {
-      videoSource.src = "videos/intro_ete.mp4";
-      credit.style.display = "none";
-    }
-    video.load();
-  }
-
-  updateVideoBySeason(seasonSwitch.checked);
-
-  seasonSwitch.addEventListener("change", function () {
-    updateVideoBySeason(this.checked);
-  });
-});
