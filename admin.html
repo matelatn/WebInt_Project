@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <title>Admin Le Flocon - Connexion</title>
+    <link rel="stylesheet" href="styles_flocon.css" >
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet" >
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+    <script src="script_admin.js" defer></script>
+
+    
+</head>
+
+<body>
+    <div id="header-placeholder"></div>
+
+    <main class="container" aria-label="Administration: Connexion et gestion des tarifs">
+        <h1>Administration</h1>
+        <p class="subtitle" id="subtitle">Veuillez vous connecter pour accéder à la gestion des tarifs.</p>
+
+        <form id="loginForm" aria-label="Formulaire de connexion administrateur">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" autocomplete="username" required aria-required="true"
+                placeholder="admin@example.com" >
+
+            <label for="password">Mot de passe</label>
+            <input type="password" id="password" name="password" autocomplete="current-password" required
+                aria-required="true" placeholder="Votre mot de passe" >
+
+            <button type="submit" aria-label="Se connecter">Se connecter</button>
+            <div id="loginMessage" role="alert" aria-live="polite" class="message" style="margin-top: 1rem;"></div>
+        </form>
+
+        <form id="adminForm" class="hidden" aria-label="Formulaire d'ajout/modification des tarifs">
+            <label for="startDate">Date de début de semaine (samedi)</label>
+            <input type="date" id="startDate" name="startDate" required aria-required="true"
+                aria-describedby="dateHelp" >
+            <small id="dateHelp">Le samedi est préféré pour la date de début.</small>
+
+            <label for="price">Prix (€)</label>
+            <input type="number" id="price" name="price" min="0" step="0.01" required aria-required="true" >
+
+            <button type="submit" aria-label="Enregistrer la semaine">Enregistrer</button>
+
+            <button type="button" id="logoutButton" aria-label="Se déconnecter">Se déconnecter</button>
+
+            <div id="adminMessage" role="alert" aria-live="polite" class="message" style="margin-top: 1rem;"></div>
+        </form>
+    </main>
+</body>
+
+</html>

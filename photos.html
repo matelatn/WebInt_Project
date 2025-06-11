@@ -2,14 +2,14 @@
 <html lang="fr">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
   <title>Le Flocon</title>
-  <link rel="stylesheet" href="styles_flocon.css" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="styles_flocon.css" >
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" >
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css" >
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet" >
   <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js"></script>
   <script src="script_flocon.js" defer></script>
   <!-- Lightbox CSS -->
@@ -32,6 +32,7 @@
 </script>
 
   <nav class="navbar">
+    <div class="lang-fr">
     <ul>
       <li><a href="index.html">Description</a></li>
       <li><a href="photos.html">Photos</a></li>
@@ -39,13 +40,30 @@
       <li><a href="reservation.html">Réservation</a></li>
       <li><a href="faq.html">F.A.Q.</a></li>
     </ul>
+  </div>
+  <div class="lang-en hidden">
+    <ul>
+      <li><a href="index.html">Description</a></li>
+      <li><a href="photos.html">Photos</a></li>
+      <li><a href="localisation.html">Location</a></li>
+      <li><a href="reservation.html">Booking</a></li>
+      <li><a href="faq.html">F.A.Q.</a></li>
+    </ul>
+  </div>
       <div class="season-toggle">
     <label class="switch">
-      <input type="checkbox" id="seasonSwitch" />
+      <input type="checkbox" id="seasonSwitch" >
       <span class="slider round"></span>
     </label>
     <span id="seasonLabel">☀️ Été</span>
   </div>
+  <div class="lang-toggle">
+  <label class="switch">
+    <input type="checkbox" id="langSwitch" >
+    <span class="slider round"></span>
+  </label>
+  <span id="langLabel">🇫🇷 Français</span>
+</div>
   </nav>
 
 
@@ -54,7 +72,13 @@
       <h2>Photos</h2>
 
       <div class="season-content winter-only">
+        <div class="lang-fr">
         <h3>❄️ Hiver</h3>
+        </div>
+        <div class="lang-en hidden">
+        <h3>❄️ Winter</h3>
+        </div>
+
         <div class="photo-gallery">
           <a href="images_flocon/vue2.jpeg" data-lightbox="hiver" data-title="Vue hiver 1">
             <img src="images_flocon/vue2.jpeg" alt="Vue hiver 1">
@@ -90,7 +114,12 @@
       </div>
 
       <div class="season-content summer-only">
+        <div class="lang-fr">
         <h3>☀️ Été</h3>
+        </div>
+        <div class="lang-en hidden">
+        <h3>☀️ Summer</h3>
+        </div>
         <div class="photo-gallery">
           <a href="images_flocon/vue_été.jpeg" data-lightbox="ete" data-title="Vue été 1">
             <img src="images_flocon/vue_été.jpeg" alt="Vue été 1">
@@ -102,9 +131,9 @@
 
 
 
+  <div class="lang-fr">
   <footer>
     <p>&copy; 2025 Le Flocon. Tous droits réservés.</p>
-
   </footer>
   <footer class="footer">
     <p><strong>Nous contacter</strong></p>
@@ -113,7 +142,21 @@
       Email : <a href="mailto:peixoto_k@yahoo.fr">peixoto_k@yahoo.fr</a><br>
       Téléphone : <a href="tel:+33615534261">06 15 53 42 61</a>
     </p>
-</footer>
+  </footer>
+  </div>
+  <div class="lang-en hidden">
+  <footer>
+    <p>&copy; 2025 Le Flocon. All rights reserved.</p>
+  </footer>
+  <footer class="footer">
+    <p><strong>Contact us</strong></p>
+    <p>
+      Owner : Karine PEIXOTO<br>
+      Email : <a href="mailto:peixoto_k@yahoo.fr">peixoto_k@yahoo.fr</a><br>
+      Phone : <a href="tel:+33615534261">06 15 53 42 61</a>
+    </p>
+  </footer>
+  </div>
 
 </body>
 

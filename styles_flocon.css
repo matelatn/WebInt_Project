@@ -154,6 +154,17 @@ header.video-header video {
     gap: 48px;
 }
 
+.lang-toggle {
+  position: absolute;
+  top: 12px;
+  left: 20px; /* au lieu de right: 90px */
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+
 /* Section Heading */
 h2 {
     font-size: 2rem;
@@ -432,13 +443,13 @@ button.secondary:hover {
 }
 
 .footer a {
-  color: inherit;        /* hérite de la couleur du texte parent */
-  text-decoration: none; /* supprime le soulignement */
-  font-weight: 500;      /* optionnel : plus visible mais discret */
+  color: inherit;       
+  text-decoration: none; 
+  font-weight: 500;     
 }
 
 .footer a:hover {
-  text-decoration: underline; /* optionnel : effet au survol */
+  text-decoration: underline;
 }
 
 
@@ -458,21 +469,19 @@ html {
     transition: color 0.3s ease, font-weight 0.3s ease;
   }
   
-  /* Flèche avant la question */
   .faq-question::before {
     content: "";
     display: inline-block;
     border-style: solid;
-    border-width: 6px 5px 0 5px; /* triangle vers le bas */
+    border-width: 6px 5px 0 5px; 
     border-color: #2c3e50 transparent transparent transparent;
     margin-right: 10px;
     vertical-align: middle;
     transition: transform 0.3s ease, border-color 0.3s ease;
   }
   
-  /* Hover : question devient plus foncée et plus grasse */
   .faq-question:hover {
-    color: #2980b9; /* bleu */
+    color: #2980b9; 
     font-weight: 700;
   }
   
@@ -480,9 +489,8 @@ html {
     border-color: #2980b9 transparent transparent transparent;
   }
   
-  /* Flèche tournée vers le haut quand aria-expanded true */
   .faq-question[aria-expanded="true"] {
-    color: #c0392b; /* rouge foncé */
+    color: #c0392b; 
     font-weight: 700;
   }
   
@@ -493,7 +501,6 @@ html {
   }
 
 
-/* Toggle switch style */
 .season-toggle {
   position: absolute;
   top: 12px;
@@ -565,4 +572,420 @@ body.winter {
   --color-shadow-accent: rgba(93, 173, 226, 0.2); /* Bleu léger */
 }
 
+form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+            max-width: 500px;
+            /* Limit form width */
+            margin: 0 auto;
+            /* Center the form */
+        }
+label {
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--color-text-primary);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
 
+        input[type="email"],
+        input[type="password"],
+        input[type="date"],
+        input[type="number"] {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            border: 1.5px solid var(--color-border);
+            border-radius: 0.75rem;
+            outline-offset: 2px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            color: var(--color-text-primary);
+            background-color: var(--color-background);
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        input[type="email"]:focus,
+        input[type="password"]:focus,
+        input[type="date"]:focus,
+        input[type="number"]:focus {
+            border-color: var(--color-primary);
+            box-shadow: 0 0 8px var(--color-primary);
+            outline: none;
+        }
+
+        button {
+            background-color: var(--color-primary);
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            width: 100%;
+            transition: background-color var(--transition-speed) ease;
+        }
+
+        button:hover {
+            background-color: var(--color-primary-hover);
+        }
+
+        /* Message styles */
+        .message {
+            margin-top: 10px;
+            padding: 12px;
+            border-radius: var(--border-radius);
+        }
+
+        .message.error {
+            background-color: #f2dede;
+            color: #a94442;
+            border: 1px solid #ebccd1;
+        }
+
+        .message.success {
+            background-color: #dff0d8;
+            color: #3c763d;
+            border: 1px solid #d6e9c6;
+        }
+
+        /* Hidden class */
+        .hidden {
+            display: none !important;
+        }
+/*Reservation */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+:root {
+    --color-primary: #62a9c9;
+    --color-primary-hover: #3e8189;
+    --color-background: #FFFFFF;
+    --color-background-alt: #f7f7f7;
+    --color-text-primary: #222222;
+    --color-text-secondary: #555555;
+    --color-border: #e0e0e0;
+    --color-shadow: rgba(0,0,0,0.05);
+    --border-radius: 12px;
+    --transition-speed: 0.3s;
+}
+
+/* Reset & base */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--color-background-alt);
+    color: var(--color-text-primary);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+/* Sticky Navigation */
+.navbar {
+    position: sticky;
+    top: 0;
+    background-color: var(--color-background);
+    z-index: 1000;
+    border-bottom: 1px solid var(--color-border);
+    box-shadow: 0 2px 4px var(--color-shadow);
+    padding: 12px 0;
+    display: flex;
+    justify-content: center;
+}
+.navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 32px;
+    margin: 0;
+    padding: 0;
+}
+.navbar a {
+    text-decoration: none;
+    color: var(--color-text-secondary);
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 8px 12px;
+    border-radius: var(--border-radius);
+    transition: all var(--transition-speed) ease;
+}
+.navbar a:hover {
+    color: var(--color-primary);
+    background-color: var(--color-background-alt);
+}
+.navbar a.active {
+    color: var(--color-primary);
+    font-weight: 700;
+    box-shadow: inset 0 -3px 0 var(--color-primary);
+}
+
+/* Season toggle */
+.season-toggle {
+    position: absolute;
+    top: 12px;
+    right: 20px;
+    z-index: 1001;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+/* ... (switch styles as you had) ... */
+
+/* Main container */
+.container {
+    max-width: 1200px;
+    margin: 40px auto 60px;
+    padding: 40px 30px;
+    background-color: var(--color-background);
+    border: 1px solid var(--color-border);
+    box-shadow: 0 4px 16px var(--color-shadow);
+    border-radius: var(--border-radius);
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+}
+
+/* Section heading */
+h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+/* Intro text pour réservation */
+.intro-form {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+/* Calendar wrapper */
+#calendar {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto 1rem;
+    padding: 0.75rem 1rem;
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--border-radius);
+    background-color: var(--color-background);
+    cursor: pointer;
+    transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+}
+#calendar:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 8px var(--color-primary);
+}
+
+/* Price display */
+.price-display {
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-align: center;
+    color: var(--color-primary);
+    margin: 1rem 0;
+    cursor: default;
+    transition: color var(--transition-speed) ease;
+}
+.price-display:hover {
+    color: var(--color-primary-hover);
+}
+
+/* Button Réserver */
+#reserveButton {
+    display: block;
+    margin: 0 auto 2rem;
+    padding: 14px 24px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: white;
+    background-color: var(--color-primary);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color var(--transition-speed) ease, transform var(--transition-speed) ease;
+    width: 90%;
+    max-width: 250px;
+}
+#reserveButton:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+#reserveButton:not(:disabled):hover {
+    background-color: var(--color-primary-hover);
+    transform: translateY(-2px);
+}
+
+/* Formulaire locataire */
+#tenant-form-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+#tenant-form-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+#tenant-form-container label {
+    font-weight: 600;
+    color: var(--color-text-secondary);
+}
+#tenant-form-container input,
+#tenant-form-container textarea,
+#tenant-form-container select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    color: var(--color-text-primary);
+    background-color: var(--color-background);
+    transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+    resize: vertical;
+}
+#tenant-form-container input:focus,
+#tenant-form-container textarea:focus,
+#tenant-form-container select:focus {
+    border-color: var(--color-primary);
+
+    outline: none;
+}
+
+/* Boutons du formulaire */
+#tenant-form-container button {
+    padding: 14px 24px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: white;
+    background-color: var(--color-primary);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    width: 100%;
+    transition: background-color var(--transition-speed) ease, transform var(--transition-speed) ease;
+}
+#tenant-form-container button:hover {
+    background-color: var(--color-primary-hover);
+    transform: translateY(-2px);
+}
+#tenant-form-container button.secondary {
+    background: transparent;
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+    box-shadow: none;
+    width: auto;
+    padding: 10px 18px;
+}
+#tenant-form-container button.secondary:hover {
+    background: var(--color-primary);
+    color: #fff;
+}
+
+/* Résumé des infos */
+#info-summary {
+    background: var(--color-background-alt);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--color-border);
+}
+#info-summary ul {
+    list-style: none;
+    padding: 0;
+}
+#info-summary li {
+    margin-bottom: 0.5rem;
+    color: var(--color-text-primary);
+}
+
+/* PayPal */
+
+#paypal-button-container {
+    margin: 2rem auto;           /* centré */
+    display: flex;
+    justify-content: center;     /* centre le contenu */
+    transform: scale(1.2);       /* agrandit de 20% */
+    transform-origin: center;    /* reste centré lors du scale */
+}
+
+
+/* Footer commun */
+footer, .footer {
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    padding: 28px 12px;
+    margin-top: 60px;
+    border-top: 1px solid var(--color-border);
+    background-color: var(--color-background-alt);
+}
+.footer a {
+    color: inherit;
+    text-decoration: none;
+    font-weight: 500;
+}
+.footer a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+        margin: 20px 10px 40px;
+    }
+    #reserveButton {
+        width: 100%;
+    }
+    #tenant-form-container {
+        padding: 0 10px;
+    }
+}
+#info-summary button {
+    display: block;
+    width: 100%;
+    margin: 0.75rem 0;
+    padding: 14px 24px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: white;
+    background-color: var(--color-primary);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition:
+            background-color var(--transition-speed) ease,
+            box-shadow var(--transition-speed) ease,
+            transform var(--transition-speed) ease;
+    /* ombre discrète et neutre */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+#info-summary button:hover {
+    background-color: var(--color-primary-hover);
+    /* ombre légèrement plus prononcée au survol */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
+}
+
+/* Secondaire (Modifier) */
+#info-summary button.secondary {
+    background: transparent;
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+    box-shadow: none;
+    width: auto;
+    padding: 10px 18px;
+}
+
+#info-summary button.secondary:hover {
+    background-color: var(--color-primary);
+    color: #fff;
+}

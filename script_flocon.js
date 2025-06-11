@@ -1,3 +1,4 @@
+
 // Appliquer immédiatement le thème sauvegardé
 (function applySavedSeasonEarly() {
   const savedSeason = localStorage.getItem("season") || "summer";
@@ -162,31 +163,55 @@ document.addEventListener("DOMContentLoaded", () => {
       paypalContainer.style.display = 'block';
 
       paypal.Buttons({
-        createOrder: function (data, actions) {
-          return actions.order.create({
-            purchase_units: [{
-              amount: { value: currentPrice.toFixed(2) }
-            }]
-          });
-        },
-        onApprove: function (data, actions) {
-          return actions.order.capture().then(async (details) => {
+        createOrder: async function (data, actions) {
             try {
-              await db.collection('weeks').doc(selectedWeekStart).update({ available: false });
-              console.log(`Week ${selectedWeekStart} marked as unavailable.`);
+                const order = await actions.order.create({
+                    purchase_units: [{
+                        amount: { value: currentPrice.toFixed(2) }
+                    }]
+                });
+                return order;
             } catch (error) {
-              console.error("Firestore update failed:", error);
+                console.error("Error creating order:", error);
+                alert("Erreur lors de la création de la commande. Veuillez réessayer.");
+                throw error; // Important pour arrêter l'exécution
             }
-          }).catch(err => {
-            console.error("Capture error:", err);
-            alert("Payment failed, please try again.");
-          });
+        },
+        onApprove: async function (data, actions) {
+            try {
+                const details = await actions.order.capture();
+                if (details.status === 'COMPLETED') {
+                    console.log("Payment completed successfully:", details);
+
+                    try {
+                        console.log("Attempting to update database...");
+                        console.log("selectedWeekStart:", selectedWeekStart);
+
+                        await db.collection('weeks').doc(selectedWeekStart).update({ available: false });
+
+                        console.log(`Week ${selectedWeekStart} marked as unavailable.`);
+                        alert("Paiement effectué avec succès ! La semaine est maintenant réservée.");
+                        // Tu peux aussi rediriger l'utilisateur vers une page de confirmation
+                    } catch (error) {
+                        console.error("Firestore update failed:", error);
+                        alert("Erreur lors de la mise à jour de la réservation. Veuillez réessayer plus tard.");
+                        // Tu peux aussi ajouter un mécanisme pour réessayer la mise à jour
+                    }
+                } else {
+                    console.error("Payment not completed:", details);
+                    alert("Le paiement n'a pas été complété. Veuillez réessayer.");
+                }
+            } catch (err) {
+                console.error("Capture error:", err);
+                alert("Erreur lors de la capture du paiement. Veuillez réessayer.");
+            }
         },
         onError: function (err) {
-          console.error('Erreur de paiement :', err);
-          alert('Erreur de paiement. Veuillez réessayer.');
+            console.error('Erreur de paiement :', err);
+            alert('Erreur de paiement. Veuillez réessayer.');
         }
-      }).render('#paypal-button-container');
+    }).render('#paypal-button-container');
+
     });
   }
 });
@@ -221,4 +246,19 @@ fetch('header.html')
       }
     });
 
+document.addEventListener("DOMContentLoaded", function () {
+  const langSwitch = document.getElementById("langSwitch");
+  const langLabel = document.getElementById("langLabel");
+
+  langSwitch.addEventListener("change", function () {
+    const isEnglish = langSwitch.checked;
+    document.querySelectorAll(".lang-fr").forEach(el => {
+      el.classList.toggle("hidden", isEnglish);
+    });
+    document.querySelectorAll(".lang-en").forEach(el => {
+      el.classList.toggle("hidden", !isEnglish);
+    });
+    langLabel.textContent = isEnglish ? "🇬🇧 English" : "🇫🇷 Français";
+  });
+});
 
